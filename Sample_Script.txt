@@ -1,0 +1,23 @@
+Customer: Hello, I'd like to speak with the customer representative regarding the recent fraud case I've raised on ym debit card.
+
+IVRS: Of course, I am here to asisit you. Give me a moment so that I can get the details related to the account......... Sorry I can't find this mobile number linked to any of our accounts , can I please have your name and account number for verification.
+
+Customer: Certainly, my name is Rahul and my account number is 12345678
+
+IVRS: Thank you Rahul. I see that there is a case registered againt your account with reference 123456 for a debit card Fraud on 12 September 2023 and is marked as draft since you have created multiple claims within last 12 months. Can you please help us with the circumstances of raising these cases to help us understand your situation better.
+
+Customer: Absolutely! thank you for understanding. The reason for raising these cases is because I have been a victim of fraud recently. I am currently on an Oil Rig in the middle of the ocean, and have been for the past three months, so no way I could have ordered Uberand paid for the same. This is the third card in the last month that i have had to cancel due to multiple Uber transactions on all the cards, even before I recieved one of the cards. I have never used Uber before, ever. I need these amounts to be refunded and a new card generated please.
+
+IVRS: I'm sorry to hear that and thank you for explaining the payments. is it possible tht someone else has access to your card details or you might have done these transactions for someone else from your account.
+
+Customer: No the cards were delivered to me and nobody has acces to either my bank or uber account details.
+
+IVRS: I understand your situation better now. From the explanation I would like to inform you that I will escalate your request for a refund to our Fraud Prevention department for further review and investigation. They will investigate the case in more detail and if they confirm that the transactions were indeed fraudulent, we will process the refunds accordingly.
+
+Customer: thank you for escalating.
+
+IVRS: cam I help you with anything else Rahul.
+
+Customer: No that will be it, thank you
+
+IVRS: You're welcome! Rahul. If you have any more questions or concernsin the meantime, don't hesitate to reach out to us. Have a great day!
