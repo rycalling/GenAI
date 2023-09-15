@@ -1,1 +1,109 @@
-[{"context": "The customer has created a draft case using Fraud Self Serve User Interface where the customer has added a Crypto transaction, as a bank we do not straight away do a refund for such cases and rely on further questions. The beneficiary of the transaction was Binance.", "qas": [{"id": "00001", "is_impossible": false, "question": "Who is impacted by the Fraud?", "answers": [{"text": "Customer", "answer_start": 1}]}]}, {"context": "The purpose of the transaction was to buy Bitcoin. The third party involved is a broker. The total transaction amount was 5 GBP", "qas": [{"id": "00002", "is_impossible": false, "question": "What was the purpose of the transaction?", "answers": [{"text": "To buy Bitcoin", "answer_start": 36}]}, {"id": "00003", "is_impossible": false, "question": "Who was the third party?", "answers": [{"text": "Broker", "answer_start": 82}]}, {"id": "00004", "is_impossible": false, "question": "what was the transaction amount?", "answers": [{"text": "5 GBP", "answer_start": 123}]}]}]
+[{
+	"context": "The customer has created a draft case using Fraud Self Serve User Interface where the customer has added a Crypto transaction, as a bank we do not straight away do a refund for such cases and rely on further questions. The beneficiary of the transaction was Binance.",
+	"qas": [{
+		"id": "00001",
+		"is_impossible": false,
+		"question": "Who is impacted by the Fraud?",
+		"answers": [{
+			"text": "Customer",
+			"answer_start": 1
+		}]
+	}]
+}, {
+	"context": "The purpose of the transaction was to buy Bitcoin. The third party involved is a broker. The total transaction amount was 5 GBP",
+	"qas": [{
+		"id": "00002",
+		"is_impossible": false,
+		"question": "What was the purpose of the transaction?",
+		"answers": [{
+			"text": "To buy Bitcoin",
+			"answer_start": 36
+		}]
+	}, {
+		"id": "00003",
+		"is_impossible": false,
+		"question": "Who was the third party?",
+		"answers": [{
+			"text": "Broker",
+			"answer_start": 82
+		}]
+	}, {
+		"id": "00004",
+		"is_impossible": false,
+		"question": "what was the transaction amount?",
+		"answers": [{
+			"text": "5 GBP",
+			"answer_start": 123
+		}]
+	}]
+}, {
+	"context": "Hello, I'd like to speak with the customer representative regarding the recent fraud case I've raised on my debit card. Of course, I am here to assist you. Give me a moment so that I can get the details related to the account. Sorry I can't find this mobile number linked to any of our accounts , can I please have your name and account number for verification. Certainly, my name is Rahul and my account number is 12345678. Thank you Rahul. I see that there is a case registered against your account with reference 123456 for a debit card Fraud on 12 September 2023 and is marked as draft since you have created multiple claims within last 12 months. Can you please help us with the circumstances of raising these cases to help us understand your situation better. Absolutely! thank you for understanding. The reason for raising these cases is because I have been a victim of fraud recently. I am currently on an Oil Rig in the middle of the ocean, and have been for the past three months, so no way I could have ordered Uber and paid for the same. This is the third card in the last month that I have had to cancel due to multiple Uber transactions on all the cards, even before I received one of the cards. I have never used Uber before, ever. I need these amounts to be refunded and a new card generated please. I'm sorry to hear that and thank you for explaining the payments. is it possible tht someone else has access to your card details or you might have done these transactions for someone else from your account. No the cards were delivered to me and nobody has access to either my bank or uber account details. I understand your situation better now. From the explanation I would like to inform you that I will escalate your request for a refund to our Fraud Prevention department for further review and investigation. They will investigate the case in more detail and if they confirm that the transactions were indeed fraudulent, we will process the refunds accordingly. Thank you for escalating. Can I help you with anything else Rahul. No that will be it, thank you. You're welcome! Rahul. If you have any more questions or concerns in the meantime, don't hesitate to reach out to us. Have a great day!",
+	"qas": [{
+			"id": "00005",
+			"is_impossible": false,
+			"question": "With which was the Fraud take place?",
+			"answers": [{
+				"text": "Debit card",
+				"answer_start": 109
+			}]
+		}, {
+			"id": "00006",
+			"is_impossible": false,
+			"question": "what is the status of the case?",
+			"answers": [{
+				"text": "Draft",
+				"answer_start": 585
+			}]
+		}, {
+			"id": "00007",
+			"is_impossible": false,
+			"question": "Is Mobile number found?",
+			"answers": [{
+				"text": "No",
+				"answer_start": 240
+			}]
+		}, {
+			"id": "00008",
+			"is_impossible": false,
+			"question": "what is my name?",
+			"answers": [{
+				"text": "Rahul",
+				"answer_start": 385
+			}]
+		}, {
+			"id": "00009",
+			"is_impossible": false,
+			"question": "What is the account number?",
+			"answers": [{
+				"text": "12345678",
+				"answer_start": 416
+			}]
+		}, {
+			"id": "00010",
+			"is_impossible": false,
+			"question": "what is the case reference?",
+			"answers": [{
+				"text": "123456",
+				"answer_start": 517
+			}]
+		},
+		{
+			"id": "00011",
+			"is_impossible": false,
+			"question": "What were the circumsatnces of the trasnsaction?",
+			"answers": [{
+				"text": "multiple Uber transactions on all the cards",
+				"answer_start": 1125
+			}]
+		},
+		{
+			"id": "00012",
+			"is_impossible": false,
+			"question": "Does someone else has access to the debit card?",
+			"answers": [{
+				"text": "No",
+				"answer_start": 1525
+			}]
+		}
+	]
+}]
