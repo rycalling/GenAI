@@ -9,8 +9,65 @@ import numpy as np
 import noisereduce as nr
 import pyttsx3
 import openai
+from fuzzywuzzy import fuzz
+from fuzzywuzzy import process
+from nltk.chat.util import Chat, reflections
+
 openai.api_key= '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'
 model_id = "gpt-3.5-turbo"
+pairs = [
+        r"(.*)my name is (.*)", #request
+        ["Hello %2, How are you today ?",] #response
+    ],
+    [
+        r"(.*)help(.*) ",
+        ["I can help you ",]
+    ],
+     [
+        r"(.*) your name ?",
+        ["My name is Gen AI, but you can just call me anything and I'm your assistant for the day .",]
+    ],
+	    [
+        r"(.*)fraud case(.*)",
+        ["Please share the reference or case numbr received in your email",]
+    ],
+		[
+        r"(.*)debit card fraud(.*)",
+        ["Please share the reference or case numbr received in your email",]
+    ],
+    [
+        r"how are you (.*) ?",
+        ["I'm doing very well", "i am great !"]
+    ],
+    [
+        r"sorry (.*)",
+        ["Its alright","Its OK, never mind that",]
+    ],
+    [
+        r"i'm (.*) (good|well|okay|ok)",
+        ["Nice to hear that","Alright, great !",]
+    ],
+    [
+        r"(hi|hey|hello|hola|holla)(.*)",
+        ["Hello", "Hey there",]
+    ],
+    [
+        r"(.*)created(.*)",
+        ["Natwest Group created me ","top secret ;)",]
+    ],
+    [
+        r"quit",
+        ["Bye for now. See you soon :) ","It was nice talking to you. See you soon :)"]
+    ],
+    [
+        r"(.*)",
+        ['That is nice to hear']
+    ],
+]
+
+reflections = {‘i am’: ‘you are’, ‘i was’: ‘you were’, ‘i’: ‘you’, “i’m”: ‘you are’, “i’d”: ‘you would’, “i’ve”: ‘you have’, “i’ll”: ‘you will’, ‘my’: ‘your’, ‘you are’: ‘I am’, ‘you were’: ‘I was’, “you’ve”: ‘I have’, “you’ll”: ‘I will’, ‘your’: ‘my’, ‘yours’: ‘mine’, ‘you’: ‘me’, ‘me’: ‘you’}
+
+chat = Chat(pairs, reflections)
 
 class NLPChatbotUI:
   def __init__(self, root):
@@ -22,14 +79,14 @@ class NLPChatbotUI:
     self.chat_area.config(yscrollcommand=self.scrollbar.set)
 
     self.user_input = Entry(root)
-    
-    
+
+
     self.voice_button = Button(root, text="Voice", command=self.voice_input)
 
     self.chat_area.pack(padx=10, pady=10, expand=True, fill=tk.BOTH)
     self.scrollbar.pack(side=tk.RIGHT, fill=tk.Y)
     self.user_input.pack(padx=10, pady=5, expand=True, fill=tk.X)
-    
+
     self.voice_button.pack(pady=5)
 
     self.nlp = spacy.load("en_core_web_sm")
@@ -44,8 +101,9 @@ class NLPChatbotUI:
           with sr.Microphone() as source:
             self.chat_area.update_idletasks()
             self.recognizer.adjust_for_ambient_noise(source)
-            print("Natwest Agent: Hi, I am GenAI from Natwest Group. How can I help you today")
-            self.text_to_speech(self.get_gpt_response("Consider yourself as Gen Ai, who is helping bank customers. Greet the customer who has just called in"))
+			greet_msg = self.get_gpt_response("Consider yourself as Gen Ai, who is helping bank customers. Greet the customer who has just called in")
+            self.text_to_speech(greet_msg)
+			print("Natwest Agent: ", greet_msg)
             print("Please speak something...")
             audio = self.recognizer.listen(source)
 
@@ -61,7 +119,7 @@ class NLPChatbotUI:
                 sample_rate=audio.sample_rate,
                 sample_width=reduced_noise.dtype.itemsize,
             )
-      
+
             recognized_text = self.recognizer.recognize_google(reduced_noise_audio)
             self.add_user_message("Customer: " + recognized_text)
             response = self.process_message(recognized_text)
@@ -69,7 +127,7 @@ class NLPChatbotUI:
 
             self.text_to_speech(response)
 
-           
+
             print("Recognized text:", recognized_text)
         except sr.UnknownValueError:
             print("Google Web Speech API could not understand audio")
@@ -78,30 +136,32 @@ class NLPChatbotUI:
 
   def process_message(self, user_input):
     user_input = user_input.lower()
-    if "hello" in user_input:
+	threshold_ratio = 60
+	
+    if fuzz.token_sort_ratio(user_input, "hello") >= threshold_ratio:
       return "Sorry, I could not recognise the linked account to this number, can you please confirm your bank account number"
-    if "hey" in user_input:
+    if fuzz.token_sort_ratio(user_input, "hey") >= threshold_ratio:
       return "Sorry, I could not recognise the linked account to this number, can you please confirm your bank account number"
-    elif "how are you" in user_input:
-      return "I'm just a chatbot, but I'm here to help."
-    elif "one two three four" in user_input:
+    elif fuzz.token_sort_ratio(user_input, "how are you") >= threshold_ratio:
+      return "I'm your assistant for the day and here to help."
+    elif fuzz.token_sort_ratio(user_input, "my account number is one two three four") >= threshold_ratio:
       return "thank you for confirming the bank account, can you please confirm your name"
-    elif "stalin" in user_input:
+    elif fuzz.token_sort_ratio(user_input, "my name is") >= threshold_ratio:
       return "Great, thank you Stalin. I can see there is a Fraud case created in your account. Would you like to know its status"
-    elif "yes" in user_input:
+    elif fuzz.token_sort_ratio(user_input, "yes") >= threshold_ratio:
       return "can you please confirm the case number received by email"
-    elif "three four five" in user_input:
+    elif fuzz.token_sort_ratio(user_input, "my case reference number is three four five") >= threshold_ratio:
       return "Thanks for confirming. your case is under progress. we would like a bit more information to progress it further"
-    elif "sure" in user_input:
+    elif fuzz.token_sort_ratio(user_input, "sure") >= threshold_ratio:
       return "What was the purpose of the transaction"
-     elif "Buying Crypto" in user_input:
+     elif fuzz.token_sort_ratio(user_input, "Buying Crypto") >= threshold_ratio:
       return "can you please confirm the transaction amount"
-    elif "five pounds" in user_input:
+    elif fuzz.token_sort_ratio(user_input, "five pounds GBP") >= threshold_ratio:
       return "Thanks for confirming. can you please provide the details of the retailer"
-    elif "yes it was Binance" in user_input:
-      return "thank you for sharing the details, we will progress the case for a refund"
+    elif fuzz.token_sort_ratio(user_input, "yes it was Binance amazon") >= threshold_ratio:
+      return random.choice(["thank you for sharing the details, we will move the case to our investigations team for review the details and progress the case","thank you for sharing the details, we will progress the case for a refund"])
     else:
-      return "I'm sorry, I didn't catch that. Can you please repeat or ask something else?"
+      return chat.respond(user_input)
 
   def add_user_message(self, message):
     self.chat_area.config(state=tk.NORMAL)
@@ -125,7 +185,7 @@ class NLPChatbotUI:
     except Exception as e:
       print(f"Error: {e}")
 
-  
+
   def text_to_speech1(self, text, output_file="output.mp3", lang="en"):
     try:
       tts = gTTS(text=text, lang=lang)
@@ -134,7 +194,7 @@ class NLPChatbotUI:
       os.system(f"start {output_file}")  # This plays the generated audio on Windows
     except Exception as e:
       print(f"Error: {e}")
-  
+
   def text_to_speech(self, text):
     try:
         # Initialize the text-to-speech engine
