@@ -16,56 +16,77 @@ from nltk.chat.util import Chat, reflections
 openai.api_key= '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'
 model_id = "gpt-3.5-turbo"
 pairs = [
-        r"(.*)my name is (.*)", #request
-        ["Hello %2, How are you today ?",] #response
-    ],
-    [
-        r"(.*)help(.*) ",
-        ["I can help you ",]
-    ],
-     [
-        r"(.*) your name ?",
-        ["My name is Gen AI, but you can just call me anything and I'm your assistant for the day .",]
-    ],
-	    [
-        r"(.*)fraud case(.*)",
-        ["Please share the reference or case numbr received in your email",]
-    ],
-		[
-        r"(.*)debit card fraud(.*)",
-        ["Please share the reference or case numbr received in your email",]
-    ],
-    [
-        r"how are you (.*) ?",
-        ["I'm doing very well", "i am great !"]
-    ],
-    [
-        r"sorry (.*)",
-        ["Its alright","Its OK, never mind that",]
-    ],
-    [
-        r"i'm (.*) (good|well|okay|ok)",
-        ["Nice to hear that","Alright, great !",]
-    ],
-    [
-        r"(hi|hey|hello|hola|holla)(.*)",
-        ["Hello", "Hey there",]
-    ],
-    [
-        r"(.*)created(.*)",
-        ["Natwest Group created me ","top secret ;)",]
-    ],
-    [
-        r"quit",
-        ["Bye for now. See you soon :) ","It was nice talking to you. See you soon :)"]
-    ],
-    [
-        r"(.*)",
-        ['That is nice to hear']
-    ],
-]
+			[
+				r"(.*)my name is (.*)",
+				["Hello %2, How are you today ?",] 
+			],
+			[
+				r"(.*)help(.*)",
+				["I can help you ",]
+			],
+			[
+				r"(.*) your name ?",
+				["My name is Gen AI, but you can just call me anything and I'm your assistant for the day .",]
+			],
+				[
+				r"(.*)fraud case(.*)",
+				["Please share the reference or case numbr received in your email",]
+			],
+				[
+				r"(.*)(crypto|gambling|3dsecure|)(.*)",
+				["can you please confirm the transaction amount",]
+			],
+				[
+				r"(.*)debit card fraud(.*)",
+				["Please share the reference or case numbr received in your email",]
+			],
+			[
+				r"how are you (.*) ?",
+				["I'm doing very well", "i am great !"]
+			],
+			[
+				r"sorry (.*)",
+				["Its alright","Its OK, never mind that",]
+			],
+			[
+				r"i'm (.*) (good|well|okay|ok)",
+				["Nice to hear that","Alright, great !",]
+			],
+			[
+				r"(hi|hey|hello|hola|holla)(.*)",
+				["Hello", "Hey there",]
+			],
+			[
+				r"(.*)created(.*)",
+				["Natwest Group created me ","top secret ;)",]
+			],
+			[
+				r"quit",
+				["Bye for now. See you soon :) ","It was nice talking to you. See you soon :)"]
+			],
+			[
+				r"(.*)",
+				['That is nice to hear']
+			],
+		]
 
-reflections = {‘i am’: ‘you are’, ‘i was’: ‘you were’, ‘i’: ‘you’, “i’m”: ‘you are’, “i’d”: ‘you would’, “i’ve”: ‘you have’, “i’ll”: ‘you will’, ‘my’: ‘your’, ‘you are’: ‘I am’, ‘you were’: ‘I was’, “you’ve”: ‘I have’, “you’ll”: ‘I will’, ‘your’: ‘my’, ‘yours’: ‘mine’, ‘you’: ‘me’, ‘me’: ‘you’}
+reflections = {"i am": "you are", 
+			   "i was": "you were", 
+			   "i": "you", 
+			   "i'm": "you are", 
+			   "i’d": "you would", 
+			   "i’ve": "you have", 
+			   "i’ll": "you will", 
+			   "my": "your", 
+			   "you are": "I am", 
+			   "you were": "I was", 
+			   "you’ve": "I have", 
+			   "you’ll": "I will", 
+			   "your": "my", 
+			   "yours": "mine", 
+			   "you": "me", 
+			   "me": "you"
+			  }
 
 chat = Chat(pairs, reflections)
 
@@ -127,8 +148,8 @@ class NLPChatbotUI:
 
             self.text_to_speech(response)
 
-
             print("Recognized text:", recognized_text)
+			
         except sr.UnknownValueError:
             print("Google Web Speech API could not understand audio")
         except sr.RequestError as e:
@@ -177,10 +198,10 @@ class NLPChatbotUI:
 
   def get_gpt_response(self, input_msg):
     try:
-      chat = openai.ChatCompletion.create(
+      gptChat = openai.ChatCompletion.create(
       model=model_id,
       messages=[{"role": "user", "content": input_msg}])
-      resp = chat.choices[0].message.content
+      resp = gptChat.choices[0].message.content
       return resp
     except Exception as e:
       print(f"Error: {e}")
